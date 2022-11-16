@@ -1,32 +1,48 @@
-/**
- * The code below tells the browser to ask you for a number
- * then if that number is `6`, it returns `true` otherwise it returns `false`
- *
- * Change this code so it returns `true` when the number is greater than or equal to 10, and false if it is less than 10
- */
+// const container = document.querySelector("#container");
+//
+// const content = document.createElement("div");
+// content.classList.add("content");
+// content.textContent = "This is the glorious text-content!";
+//
+// container.appendChild(content);
+//
+// const red = document.createElement("p");
+// red.style.color = "red";
+// red.textContent = "Hey I'm red!";
+// container.appendChild(red);
+//
+// const blue = document.createElement("h3");
+// blue.style.color = "blue";
+// blue.textContent = "I'm a blue h3!";
+// container.appendChild(blue);
+//
+// const divContainer = document.createElement("div");
+// divContainer.style.cssText =
+//   "border: 1px solid black; background-color: pink; padding: 0 10px;";
+//
+// const divH1 = document.createElement("h1");
+// divH1.textContent = "I'm in a div";
+// divContainer.appendChild(divH1);
+//
+// const divP = document.createElement("p");
+// divP.textContent = "ME TOO!";
+// divContainer.appendChild(divP);
+//
+// container.appendChild(divContainer);
 
-number = Number(prompt("enter a number"));
+// function alertFunction() {
+//   alert("YAY! YOU DID IT!");
+// }
+//
+// const btn = document.querySelector("#btn");
+// btn.addEventListener("click", function (e) {
+//   e.target.style.background = "blue";
+// });
 
-function numberChecker() {
-  return number >= 10;
-}
+const buttons = document.querySelectorAll("button");
 
-module.exports = {
-  testGroup: "a",
-  greeting,
-  birthYear,
-  thisYear,
-  firstName,
-  lastName,
-};
-
-module.exports = {
-  testGroup: "b",
-  greeting,
-  birthYear,
-  thisYear,
-  firstName,
-  lastName,
-  fullName,
-  age,
-};
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    alert(button.id);
+  });
+});
