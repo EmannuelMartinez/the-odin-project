@@ -5,18 +5,57 @@
     <title>Loops: Task 3</title>
     <script defer src="script.js"></script>
 </head>
-<!-- your HTML file: -->
 <body>
-    <h1>
-        THE TITLE OF YOUR WEBPAGE
-    </h1>
-    <div id="container"></div>
+    <tab-panel>
+        <div data-tabname="one">Tab one</div>
+        <div data-tabname="two">Tab two</div>
+        <div data-tabname="three">Tab three</div>
+    </tab-panel>
+    <script>
+        function asTabs(node) {
+            // Your code here.
+            // Create a series of buttons associated with data-tabname
+            let tabs = Array.from(node.children).map(node => {
+                let button = document.createElement("button");
+                button.textContent = node.getAttribute('data-tabname');
+                let tab = {node, button};
+                button.addEventListener('click', evt => {
+                    selectTab(tab);
+                });
+                return tab;
+            });
 
-    <!--    <button id="btn">CLICK ME</button>-->
+            let tabList = document.createElement('div');
+            for (let {button} of tabs) tabList.appendChild(button);
+            node.insertBefore(tabList, node.firstChild);
 
-    <button id="1">Click Me</button>
-    <button id="2">Click Me</button>
-    <button id="3">Click Me</button>
+            function selectTab(selectedTab) {
+                for (let tab of tabs) {
+                    let selected = tab === selectedTab;
+                    tab.button.style.color = selected ? "red" : "";
+                    tab.node.style.display = selected ? "" : "none";
+                }
+            }
+
+            selectTab(tabs[0]);
+
+            // Each tab is going to consist of this button, and one of the divs (i.e. our data)
+
+            // Write a separate function that will actually do the choosing of our tab.
+
+            // The event listener will be attached outside of this function, and the
+            // function will run internally once the button is selected.
+
+            // In the function, we'll run through all of the tabs. If it has been clicked,
+            // then the button text will become red, and we'll display its div.
+
+            // Otherwise, the dispaly will be none.
+
+            // Run the tabs once on the first tab, as the default behavior
+        }
+
+        asTabs(document.querySelector("tab-panel"));
+    </script>
 </body>
 
 </html>

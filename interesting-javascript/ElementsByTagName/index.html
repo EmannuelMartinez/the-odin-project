@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Loops: Task 3</title>
+  <!--    <script defer src="script.js"></script>-->
+</head>
+<!-- your HTML file: -->
+<body>
+  <h1>Heading with a <span>span</span> element.</h1>
+  <p>A paragraph with <span>one</span>, <span>two</span>
+    spans.</p>
+
+
+  <script>
+    // I think an important part about writing code, is also
+    // understanding what you just wrote lol
+
+    // Plus, this was a lesson on how...DOM manipulation is
+    // important, but, also, how just reading what a thing
+    // actually is can help a lot.
+
+    // Like sure, I could have looked up the million and
+    // one methods attached to objects on some site...
+
+    // Or, I could have just seen the parameters of what the
+    // problem was asking of me, saw something new, and thought
+
+    // "Huh, I should put that into the console and see
+    // what attributes are attached to it...maybe that'll give
+    // me a good jumping off point."
+
+    // I can read all about how a drill works, but until I use
+    // the damn thing, then what am I really learning lol
+
+
+    // So here, we're given a fundamental DOM object to
+    // work with, `document`. Here, putting it into
+    // our console, we see that the document.body will print out every
+    // child that exists within the body tag!
+
+    // Nifty, good to know that DOM objects are literally just that,
+    // objects.
+
+    // They also contain certain useful attributes, such as
+
+    // childNodes, which are all the children attached to
+    // a specific DOM node
+
+    // nodeType, whose value is `1` whenever we're talking about
+    // html tags as we know them, e.g., <h1>, <p>, <random-tag>
+
+    // node.ELEMENT_NODE, whose value is also `1`, and is used to assign
+    // those aforementioned html tags this number. *hint hint*
+
+    // node.nodeName, which is the UPPERCASE name of the current node.
+
+    // and honestly, outside a bit of recursion, we've solved
+    // the problem.
+
+    function byTagName(node, tag) {
+      let nodeChildren = [];
+      tag = tag.toUpperCase();
+
+      function exploreNodeChildren(node) {
+        for (let i = 0; i < node.childNodes.length; i++) {
+          let child = node.childNodes[i];
+          if (child.nodeType === node.ELEMENT_NODE) {
+            if (child.nodeName === tag) {
+              nodeChildren.push(child);
+            }
+            exploreNodeChildren(child);
+          }
+        }
+      }
+
+      exploreNodeChildren(node);
+      return nodeChildren;
+    }
+
+    console.log(byTagName(document.body, "span"));
+
+
+  </script>
+</body>
+
+</html>

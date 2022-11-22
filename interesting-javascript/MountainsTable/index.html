@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Loops: Task 3</title>
+  <!--    <script defer src="script.js"></script>-->
+</head>
+<!-- your HTML file: -->
+<body>
+  <h1>Mountains</h1>
+
+  <div id="mountains"></div>
+
+  <script>
+    // const MOUNTAINS = [
+    //     {name: "Kilimanjaro", height: 5895, place: "Tanzania"},
+    //     {name: "Everest", height: 8848, place: "Nepal"},
+    //     {name: "Mount Fuji", height: 3776, place: "Japan"},
+    //     {name: "Vaalserberg", height: 323, place: "Netherlands"},
+    //     {name: "Denali", height: 6168, place: "United States"},
+    //     {name: "Popocatepetl", height: 5465, place: "Mexico"},
+    //     {name: "Mont Blanc", height: 4808, place: "Italy/France"}
+    // ];
+    //
+    // // So this works, but it could be cleaned up in a lot of different ways.
+    //
+    // // Variable names suck, I didn't use arrow functions at all, I was too afraid to keep variables
+    // // outside, even though it makes it a lot more convenient (const are made to be 'permanent' and reusable,
+    // // so I need to take advantage of that)
+    //
+    // // Other than that, I was able to figure out the logic myself after the hints, so that was nice.
+    //
+    //
+    // // Your code here
+    // const container = document.querySelector('#mountains');
+    //
+    // const table = document.createElement('table');
+    //
+    // for (let i = 0; i < MOUNTAINS.length; i++) {
+    //     // Establish th row
+    //     if (i === 0) {
+    //         const tableHeader = Object.keys(MOUNTAINS[i]);
+    //         const tableHeaderRow = document.createElement('tr');
+    //         for (let j = 0; j < tableHeader.length; j++) {
+    //             let header = document.createElement('th');
+    //             let headerText = document.createTextNode(tableHeader[j]);
+    //             header.appendChild(headerText);
+    //             tableHeaderRow.appendChild(header);
+    //             table.appendChild(tableHeaderRow);
+    //         }
+    //     } else {
+    //         const tableRowKeys = Object.keys(MOUNTAINS[i]);
+    //         const tableRow = document.createElement('tr');
+    //         for (let j = 0; j < tableRowKeys.length; j++) {
+    //             let rowItem = document.createElement('td');
+    //             let rowItemText = document.createTextNode(MOUNTAINS[i][tableRowKeys[j]]);
+    //             if (typeof MOUNTAINS[i][tableRowKeys[j]] === "number") {
+    //                 rowItem.style.textAlign = 'right';
+    //             }
+    //             rowItem.appendChild(rowItemText);
+    //             tableRow.appendChild(rowItem);
+    //             table.appendChild(tableRow);
+    //         }
+    //     }
+    //
+    // }
+    // container.appendChild(table);
+
+    // Second Attempt
+
+    // I did have the foresight of seeing what was done before, but there are still
+    // lessons to be learned. Instead of just using explicitly defined array[i] values,
+    // which could be meaningless if you don't know what the hell is stored in the array,
+    // I was able to use full names thanks to the forEach method.
+
+    const MOUNTAINS = [
+      {name: "Kilimanjaro", height: 5895, place: "Tanzania"},
+      {name: "Everest", height: 8848, place: "Nepal"},
+      {name: "Mount Fuji", height: 3776, place: "Japan"},
+      {name: "Vaalserberg", height: 323, place: "Netherlands"},
+      {name: "Denali", height: 6168, place: "United States"},
+      {name: "Popocatepetl", height: 5465, place: "Mexico"},
+      {name: "Mont Blanc", height: 4808, place: "Italy/France"}
+    ];
+
+    function processTable(data) {
+      let table = document.createElement("table");
+
+      // Process Header Row
+      let headers = Object.keys(data[0]);
+
+      let headerRow = document.createElement("tr");
+
+      headers.forEach(item => {
+        let cell = document.createElement("th");
+        cell.appendChild(document.createTextNode(item));
+        headerRow.appendChild(cell);
+      });
+
+      table.appendChild(headerRow);
+
+      data.forEach(object => {
+        let row = document.createElement("tr");
+        headers.forEach(header => {
+          let cell = document.createElement("td");
+          let objectHeaderData = object[header];
+          let cellData = document.createTextNode(objectHeaderData);
+          if (typeof objectHeaderData === "number") {
+            cell.style.textAlign = "right";
+          }
+          cell.appendChild(cellData);
+          row.appendChild(cell);
+        });
+        table.appendChild(row);
+      });
+
+      return table;
+    }
+
+    document.querySelector("#mountains").appendChild(processTable(MOUNTAINS));
+
+  </script>
+</body>
+
+</html>
