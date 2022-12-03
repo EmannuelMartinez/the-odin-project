@@ -1,48 +1,24 @@
-// const container = document.querySelector("#container");
-//
-// const content = document.createElement("div");
-// content.classList.add("content");
-// content.textContent = "This is the glorious text-content!";
-//
-// container.appendChild(content);
-//
-// const red = document.createElement("p");
-// red.style.color = "red";
-// red.textContent = "Hey I'm red!";
-// container.appendChild(red);
-//
-// const blue = document.createElement("h3");
-// blue.style.color = "blue";
-// blue.textContent = "I'm a blue h3!";
-// container.appendChild(blue);
-//
-// const divContainer = document.createElement("div");
-// divContainer.style.cssText =
-//   "border: 1px solid black; background-color: pink; padding: 0 10px;";
-//
-// const divH1 = document.createElement("h1");
-// divH1.textContent = "I'm in a div";
-// divContainer.appendChild(divH1);
-//
-// const divP = document.createElement("p");
-// divP.textContent = "ME TOO!";
-// divContainer.appendChild(divP);
-//
-// container.appendChild(divContainer);
+function topThreeWords(text) {
+  let arr = [...text.matchAll(/\b[\w']+\b/gi)];
+  arr = arr.sort();
 
-// function alertFunction() {
-//   alert("YAY! YOU DID IT!");
-// }
-//
-// const btn = document.querySelector("#btn");
-// btn.addEventListener("click", function (e) {
-//   e.target.style.background = "blue";
-// });
+  let counted = arr.reduce((acc, val) => {
+    acc[val] = acc[val] === undefined ? 1 : (acc[val] += 1);
+    return acc;
+  }, {});
 
-const buttons = document.querySelectorAll("button");
+  const values = Object.values(counted).sort((a, b) => b - a);
+  let keys;
+  const maxN = values[values.length - 3];
+  keys = Object.entries(counted).reduce(
+    (o, [k, v]) => (v >= maxN ? { ...o, [k]: v } : o),
+    {}
+  );
 
-buttons.forEach((button) => {
-  button.addEventListener("click", () => {
-    alert(button.id);
-  });
-});
+  keys = Object.keys(keys).sort((a, b) => b - a);
+
+  return keys;
+}
+
+console.log(topThreeWords("a a a  b  c c  d d d d  e e e e e"));
+console.log(topThreeWords("a a c b b"));

@@ -1,85 +1,117 @@
 let computerChoices = ["rock", "paper", "scissors"];
+let humanScore = 0;
+let computerScore = 0;
+
+// Initial Set-Up
+let rock = document.querySelector(".rockBtn");
+let paper = document.querySelector(".paperBtn");
+let scissors = document.querySelector(".scissorsBtn");
+let displayMsg = document.querySelector(".winnerMessage");
+let humanScoreTxt = document.querySelector(".humanScore");
+let computerScoreTxt = document.querySelector(".computerScore");
+let computerRock = document.querySelector(".computerRock");
+let computerPaper = document.querySelector(".computerPaper");
+let computerScissors = document.querySelector(".computerScissors");
+let restart = document.querySelector("#restart");
+
+restart.style.disabled = "true";
+restart.style.visibility = "hidden";
+
+rock.addEventListener("click", () => playRound("rock"));
+paper.addEventListener("click", () => playRound("paper"));
+scissors.addEventListener("click", () => playRound("scissors"));
+restart.addEventListener("click", restartGame);
 
 function getComputerChoice() {
   return computerChoices[Math.floor(Math.random() * computerChoices.length)];
 }
 
-function playRound() {
+function playRound(humanChoice) {
   let computerSelection = getComputerChoice();
-  console.log(computerSelection);
-  let playerSelection = prompt(
-    "What is your choice? (Rock, Paper, or Scissors): "
-  ).toLowerCase();
+  determineWinner(humanChoice, computerSelection);
+}
 
-  return determineWinner(playerSelection, computerSelection);
+function computerSelectionColor(computerSelection) {
+  computerRock.textContent = "";
+  computerPaper.textContent = "";
+  computerScissors.textContent = "";
+  switch (computerSelection) {
+    case "rock":
+      computerRock.textContent = "🤖";
+      break;
+    case "paper":
+      computerPaper.textContent = "🤖";
+      break;
+    case "scissors":
+      computerScissors.textContent = "🤖";
+      break;
+  }
 }
 
 function determineWinner(playerSelection, computerSelection) {
-  let message;
-  let result;
+  computerSelectionColor(computerSelection);
   if (playerSelection === computerSelection) {
-    message = "It's a tie! No winner.";
-    result = 2;
+    displayMsg.textContent = "It's a tie! No winner.";
   } else if (playerSelection === "rock") {
     if (computerSelection === "scissors") {
-      message = "You win! Rock beats scissors";
-      result = 0;
+      displayMsg.textContent = "You win! Rock beats scissors";
+      humanScore++;
     } else {
-      message = "You lose! Paper beats rock";
-      result = 1;
+      displayMsg.textContent = "You lose! Paper beats rock";
+      computerScore++;
     }
   } else if (playerSelection === "paper") {
     if (computerSelection === "rock") {
-      message = "You win! Paper beats rock.";
-      result = 0;
+      displayMsg.textContent = "You win! Paper beats rock.";
+      humanScore++;
     } else {
-      message = "You lose! Scissors beats paper.";
-      result = 1;
+      displayMsg.textContent = "You lose! Scissors beats paper.";
+      computerScore++;
     }
   } else if (playerSelection === "scissors") {
     if (computerSelection === "paper") {
-      message = "You win! Scissors beats paper";
-      result = 0;
+      displayMsg.textContent = "You win! Scissors beats paper";
+      humanScore++;
     } else {
-      message = "You lose! Rock beats scissors";
-      result = 1;
+      displayMsg.textContent = "You lose! Rock beats scissors";
+      computerScore++;
     }
   } else {
-    message = "Something broke.";
+    displayMsg.textContent = "Something broke.";
   }
-  console.log(message);
-  return result;
+  humanScoreTxt.textContent = humanScore;
+  computerScoreTxt.textContent = computerScore;
+  if (humanScore === 5 || computerScore === 5) {
+    printResults(humanScore, computerScore);
+    rock.disabled = true;
+    paper.disabled = true;
+    scissors.disabled = true;
+    restart.style.disabled = false;
+    restart.style.visibility = "visible";
+  }
 }
 
 function printResults(humanScore, computerScore) {
   if (humanScore > computerScore) {
-    console.log(
-      `You won! Final score - You: ${humanScore}, Computer: ${computerScore}`
-    );
+    displayMsg.textContent = "You won!!! 🥳";
   } else if (computerScore > humanScore) {
-    console.log(
-      `You lost! Final score - You: ${humanScore}, Computer: ${computerScore}`
-    );
-  } else {
-    console.log(
-      `It was a tie! Final score - You: ${humanScore}, Computer: ${computerScore}`
-    );
+    displayMsg.textContent = "You lost!!! 😭";
   }
 }
 
-function game() {
-  let computerScore = 0;
-  let humanScore = 0;
-  let result;
-  for (let i = 0; i < 5; i++) {
-    result = playRound();
-    if (result === 0) {
-      humanScore++;
-    } else if (result === 1) {
-      computerScore++;
-    }
-  }
-  printResults(humanScore, computerScore);
+function restartGame() {
+  displayMsg.innerHTML = "Choose below!<br>First to 5 Points Wins!";
+  restart.style.disabled = true;
+  console.log(displayMsg);
+  computerScore = 0;
+  humanScore = 0;
+  restart.style.visibility = "hidden";
+  rock.disabled = false;
+  paper.disabled = false;
+  scissors.disabled = false;
+  computerRock.textContent = "";
+  computerPaper.textContent = "";
+  computerScissors.textContent = "";
+  humanScoreTxt.textContent = humanScore;
+  computerScoreTxt.textContent = computerScore;
 }
-
-game();
