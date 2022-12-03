@@ -3,8 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Rock, Paper, Scissors!</title>
-    <script src="script.js"></script>
+    <link href="styles.css" rel="stylesheet">
+    <script defer src="script.js"></script>
 </head>
 <body>
+    <header>
+        <h1>ROCK! PAPER! SCISSORS!</h1>
+    </header>
+    <main>
+        <div class="message">
+            <p class="winnerMessage">Choose below!<br>First to 5 Points Wins!</p>
+        </div>
+        <div class="score">
+            <p class="human">Your Score: <span class="humanScore">0</span></p>
+            <p class="robot">Computer Score: <span class="computerScore">0</span></p>
+        </div>
+        <div class="buttons">
+            <button class="rockBtn">🪨</button>
+            <button class="paperBtn">📄</button>
+            <button class="scissorsBtn">✂️</button>
+        </div>
+        <div class="computerSelection">
+            <div class="computerRock"></div>
+            <div class="computerPaper"></div>
+            <div class="computerScissors"></div>
+        </div>
+        <div id="restart">
+            <button class="playAgain">Play Again?</button>
+        </div>
+
+    </main>
+    <footer>
+        <p class="acknowledgment">Designed by Emannuel Martinez</p>
+    </footer>
 </body>
 </html>
