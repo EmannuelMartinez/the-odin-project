@@ -1,61 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <title>Loops: Task 3</title>
-    <script defer src="script.js"></script>
-</head>
-<body>
-    <tab-panel>
-        <div data-tabname="one">Tab one</div>
-        <div data-tabname="two">Tab two</div>
-        <div data-tabname="three">Tab three</div>
-    </tab-panel>
-    <script>
-        function asTabs(node) {
-            // Your code here.
-            // Create a series of buttons associated with data-tabname
-            let tabs = Array.from(node.children).map(node => {
-                let button = document.createElement("button");
-                button.textContent = node.getAttribute('data-tabname');
-                let tab = {node, button};
-                button.addEventListener('click', evt => {
-                    selectTab(tab);
-                });
-                return tab;
-            });
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width" name="viewport" />
+    <title>My spending record</title>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <style></style>
+  </head>
+  <body>
+    <h1>My spending record</h1>
 
-            let tabList = document.createElement('div');
-            for (let {button} of tabs) tabList.appendChild(button);
-            node.insertBefore(tabList, node.firstChild);
-
-            function selectTab(selectedTab) {
-                for (let tab of tabs) {
-                    let selected = tab === selectedTab;
-                    tab.button.style.color = selected ? "red" : "";
-                    tab.node.style.display = selected ? "" : "none";
-                }
-            }
-
-            selectTab(tabs[0]);
-
-            // Each tab is going to consist of this button, and one of the divs (i.e. our data)
-
-            // Write a separate function that will actually do the choosing of our tab.
-
-            // The event listener will be attached outside of this function, and the
-            // function will run internally once the button is selected.
-
-            // In the function, we'll run through all of the tabs. If it has been clicked,
-            // then the button text will become red, and we'll display its div.
-
-            // Otherwise, the dispaly will be none.
-
-            // Run the tabs once on the first tab, as the default behavior
-        }
-
-        asTabs(document.querySelector("tab-panel"));
-    </script>
-</body>
-
+    <table>
+      <caption>
+        How I chose to spend my money
+      </caption>
+      <thead>
+        <tr>
+          <th>Purchase</th>
+          <th>Location</th>
+          <th>Date</th>
+          <th>Evaluation</th>
+          <th>Cost (€)</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="4">SUM</td>
+          <td>118</td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <tr>
+          <td>Haircut</td>
+          <td>Hairdresser</td>
+          <td>12/09</td>
+          <td>Great idea</td>
+          <td>30</td>
+        </tr>
+        <tr>
+          <td>Lasagna</td>
+          <td>Restaurant</td>
+          <td>12/09</td>
+          <td>Regrets</td>
+          <td>18</td>
+        </tr>
+        <tr>
+          <td>Shoes</td>
+          <td>Shoeshop</td>
+          <td>13/09</td>
+          <td>Big regrets</td>
+          <td>65</td>
+        </tr>
+        <tr>
+          <td>Toothpaste</td>
+          <td>Supermarket</td>
+          <td>13/09</td>
+          <td>Good</td>
+          <td>5</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
 </html>
